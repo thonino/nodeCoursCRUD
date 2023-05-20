@@ -91,10 +91,10 @@ Data.save().then(()=>{
 
 // [READ CONTACT] 
 // => Lire données de la BDD dans le fichier "views/Contact.ejs" 
-// app.get() : désigner route "/"
+// app.get('/') : désigner route "/"
 // Contact.find() : dans la BDD, chercher les {objets Contact} 
 // then() : ajouter une action pour les {objets Contact} trouvés 
-// res.render() : response => envoyer "data" vers la vue Contact.ejs
+// res.render() : response => : Rendu envoie "data" vers la vue "Contact.ejs"
 app.get('/', function(req, res){
     Contact.find() 
     .then(data =>{res.render('Contact', {data:data})})
@@ -107,7 +107,7 @@ app.get('/', function(req, res){
   // app.get() : désigner route [formulaire edit] "/contact/edit/:id"
   // ":id" a été envoyé à l'url lors du clique du bouton "edit"
   // Contact.findOne() : dans la BDD, chercher {_id: req.params.id} == :id
-  // res.render() : response => envoyer "data" trouvées vers la vue EditContact.ejs
+  // res.render() : response => Rendu envoie "data" vers la vue "EditContact.ejs"
   app.get('/contact/edit/:id', function(req, res){
     Contact.findOne({_id: req.params.id})
       .then(data => { res.render('EditContact', { data: data });})

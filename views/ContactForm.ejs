@@ -11,7 +11,14 @@
     <%- include('Nav') %> <!--Importer Nav-->
     <div class="container mt-5">
       <h1>Nouveau Contact</h1>
-      <!-- action & method !!! important, ne pas oublier -->
+      <!--
+        En cliquant sur "Submit", le formulaire renvoie les informations vers
+        le chemin "/submit-contact" 
+        method="contact" : détermine le mode d'envoie. Get aussi est possible
+        action="/submit-contact" : chemin de reception/traitement des informations envoyées
+        <input name=""> : obligatoire pour pouvoir traiter le formulaire
+        <input ou bouton type="submit"> : obligatoire pour lancer action="/submit-contact"
+      -->
       <form method="post" action="/submit-contact" > 
           <div class="mb-3">
             <label for="nom" class="form-label">Nom</label>

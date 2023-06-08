@@ -9,6 +9,7 @@ const contactSchema = new mongoose.Schema({
     nom: { type: String },
     prenom: { type: String },
     email: { type: String },
+    password: { type: String},
     message: { type: String }
 });
 module.exports = mongoose.model('Contact', contactSchema);

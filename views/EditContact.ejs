@@ -8,18 +8,11 @@
       <title>Edit</title>
   </head>
   <body>
-    <%- include('Nav') %> <!--Importer Nav -->
+    <%- include('Nav') %> 
     <div class="container mt-5">
         <div class="container mt-5">
-          <h1>Mondifier Contact</h1>
-          <!-- 
-            MODIFIER : (Ne pas oublier d'installer la dépendance Method-override)
-            1 - L'url action inclut l'id suivi de la synthaxe: ?_method=PUT
-              action="chemin/data.id?_method=PUT" 
-            2 - ajouter input type "hidden" avec name="_method" et value="PUT"
-              <input type="hidden" name="_method" value="PUT">
-          -->
-          <form method="post" action="/contact/edit/<%= data.id%>?_method=PUT"> 
+          <h1>Modifier Contact</h1>
+          <form method="post" action="/contact/update/<%= data.id%>?_method=PUT"> 
             <input type="hidden" name="_method" value="PUT">
               <div class="mb-3">
                 <label class="form-label">Nom</label>
@@ -33,20 +26,17 @@
                 <label class="form-label">Email</label>
                 <input type="text" class="form-control" name="email" value="<%= data.email%>">
               </div>
+              {if }
+              <div class="mb-3">
+                <label class="form-label">password</label>
+                <input type="password" class="form-control" name="password" value="">
+              </div>
               <div class="form-group mb-3">
                 <label>Message</label>
                 <textarea class="form-control" name="message" rows="3"><%= data.message%></textarea>
               </div>
               <button type="submit" class="btn btn-primary">Enregister</button>
             </form>
-            <!-- 
-              SUPPRIMER : (Ne pas oublier d'installer la dépendance Method-override)
-              1 - L'url action inclut l'id suivi de la synthaxe: ?_method=DELETE
-                  action="chemin/contact.id?_method=DELETE" 
-                  "contact.id" dépend du nom de l'objet dans le foreach
-              2 - ajouter input type "hidden" avec name="_method" et value="DELETE"
-                  <input type="hidden" name="_method" value="DELETE">
-            -->
             <form method="post"action="/contact/delete/<%= data.id%>?_method=DELETE">
               <input type="hidden" name="_method" value="DELETE">
                 <input type="submit" class="btn btn-danger mt-2" name="delete" value="Delete">

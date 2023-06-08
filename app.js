@@ -79,7 +79,10 @@ app.get('/contact/new', function(req, res){
       message: req.body.message,
   })
 Data.save().then(()=>{ 
-      res.redirect('http://localhost:3000/allcontact'); 
+      // [FOR EJS]
+      res.redirect('/'); 
+      // [FOR EJS]
+      // res.redirect('http://localhost:3000/allcontact'); 
       console.log("Success Data Saved");})
     .catch(err => { console.log(err); }); 
 });
@@ -94,6 +97,7 @@ app.post('/login', (req, res) => {
     if (!bcrypt.compareSync(req.body.password, contact.password)) {
       res.send('Mot de passe invalide');}
     req.session.contact = contact;
+    // [FOR EJS]
     res.redirect('/loginsuccess');
   })
   .catch(err => console.log(err));
@@ -114,30 +118,31 @@ app.get('/logout', (req, res) => {
 });
 
 // app.get('/', validateToken, function(req, res){
-// // RES.JSON [FOR REACT]
-// app.get('/', function(req, res){ 
-//   Contact.find() 
-//   .then(data => res.json(data))
-//   .catch(err => console.log(err))
-// });
-// RES.RENDER [FOR EJS]
+// [FOR EJS]
 app.get('/', function(req, res){
   Contact.find() 
   .then(data =>{res.render('Contact', {data:data})})
   .catch(err => console.log(err))
 });
+// [FOR REACT]
+// app.get('/', function(req, res){ 
+//   Contact.find() 
+//   .then(data => res.json(data))
+//   .catch(err => console.log(err))
+// });
+
 
 // [EDIT] 
-// RES.JSON [FOR REACT]
+  // [FOR EJS]
   app.get('/contact/edit/:id', function(req, res){
     Contact.findOne({_id: req.params.id})
-      .then(data => { res.json(data)})
+      .then(data => { res.render('EditContact', { data: data });})
       .catch(err => console.log(err));
   });
-  // // RES.RENDER [FOR EJS]
+// [FOR REACT]
   // app.get('/contact/edit/:id', function(req, res){
   //   Contact.findOne({_id: req.params.id})
-  //     .then(data => { res.render('EditContact', { data: data });})
+  //     .then(data => { res.json(data)})
   //     .catch(err => console.log(err));
   // });
   app.put('/contact/update/:id', function(req, res){
@@ -151,7 +156,10 @@ app.get('/', function(req, res){
       Data.password = bcrypt.hashSync(req.body.password, 10);
     }
     Contact.updateOne({_id: req.params.id}, {$set: Data})
-    .then(console.log("Data updated"), res.redirect('http://localhost:3000/allcontact'))
+    // [FOR EJS]
+    .then(console.log("Data updated"), res.redirect('/'))
+    // [FOR REACT]
+    // .then(console.log("Data updated"), res.redirect('http://localhost:3000/allcontact'))
     .catch(err => console.log(err));
   });
 
@@ -159,8 +167,9 @@ app.get('/', function(req, res){
 app.delete('/contact/delete/:id', function(req, res){
   Contact.findOneAndDelete({_id: req.params.id})
   // [FOR  EJS]
-  // .then(res.redirect('/'))
-  .then(res.redirect('http://localhost:3000/allcontact'))
+  .then(res.redirect('/')) //
+  // [FOR REACT]
+  // .then(res.redirect('http://localhost:3000/allcontact'))
   .catch(err => console.log(err));
 });
 
